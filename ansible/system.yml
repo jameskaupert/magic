@@ -60,6 +60,10 @@
         groups: docker
         append: yes
 
+    - name: Force add user to docker group with usermod
+      command: usermod -aG docker {{ target_user }}
+      changed_when: false
+
     - name: Verify user is in docker group
       command: groups {{ target_user }}
       register: user_groups
@@ -68,6 +72,15 @@
     - name: Show user groups
       debug:
         msg: "User groups: {{ user_groups.stdout }}"
+
+    - name: Check /etc/group for docker group
+      command: grep "^docker:" /etc/group
+      register: docker_group_check
+      changed_when: false
+
+    - name: Show docker group membership
+      debug:
+        msg: "Docker group: {{ docker_group_check.stdout }}"
 
   handlers:
     - name: restart greetd
