@@ -48,7 +48,7 @@
 
     - name: Add user to necessary groups
       user:
-        name: "{{ target_user }}"
+        name: "{{ ansible_user }}"
         groups: docker
         append: yes
 
