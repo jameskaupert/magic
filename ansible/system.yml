@@ -1,8 +1,9 @@
 ---
 - hosts: localhost
   become: yes
+  gather_facts: yes
   vars:
-    target_user: "{{ ansible_user_id }}"
+    target_user: "{{ ansible_env.USER }}"
   
   tasks:
     - name: Update system
