@@ -47,11 +47,29 @@
     - name: Configure Docker
       include_tasks: tasks/docker.yml
 
-    - name: Add user to necessary groups
+    - name: Debug target user
+      debug:
+        msg: "Adding user '{{ target_user }}' to docker group"
+
+    - name: Ensure docker group exists
+      group:
+        name: docker
+        state: present
+
+    - name: Add user to docker group
       user:
         name: "{{ target_user }}"
         groups: docker
         append: yes
+
+    - name: Verify user is in docker group
+      command: groups {{ target_user }}
+      register: user_groups
+      changed_when: false
+
+    - name: Show user groups
+      debug:
+        msg: "User groups: {{ user_groups.stdout }}"
 
   handlers:
     - name: restart greetd
