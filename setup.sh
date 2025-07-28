@@ -63,15 +63,11 @@ echo "✅ Verifying system services..."
 sudo systemctl status greetd --no-pager
 sudo systemctl status docker --no-pager
 
-# Test Docker
-echo "🐳 Testing Docker..."
-docker run hello-world
-
 echo ""
 echo "🎉 Setup complete!"
 echo "💡 Next steps:"
-echo "   1. Restart your shell or logout/login for shell changes"
-echo "   2. Test the greeter by logging out"
+echo "   1. Logout/login for shell and group changes to take effect"
+echo "   2. Test the greeter and verify Docker access"
 echo "   3. Verify mise tools: mise list"
 echo ""
 echo "📍 Magic repository location: $TARGET_MAGIC_PATH"
