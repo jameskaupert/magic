@@ -36,7 +36,7 @@ if ! command -v ansible-playbook &>/dev/null; then
   sudo pacman -S --noconfirm ansible
 fi
 
-ansible-playbook ansible/system.yml --ask-become-pass
+ansible-playbook ansible/system.yml --ask-become-pass --extra-vars "target_user=$USER"
 
 # Install chezmoi
 echo "📋 Installing chezmoi..."
