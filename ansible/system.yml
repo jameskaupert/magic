@@ -16,6 +16,7 @@
           - git
           - curl
           - wget
+          - unzip
           - zsh
           - zsh-completions
           - docker
