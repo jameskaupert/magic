@@ -22,6 +22,13 @@
           - docker-compose
           - ansible
           - mise
+          - noto-fonts-emoji
+          - ttf-dejavu
+          - ttf-font-awesome
+          - ttf-overpass-nerd
+          - ttf-jetbrains-mono-nerd
+          - ttf-iosevka-nerd
+          - ttf-cascadia-code-nerd
         state: present
 
     - name: Install Hyprland ecosystem
@@ -45,10 +52,6 @@
     - name: Configure Docker
       include_tasks: tasks/docker.yml
 
-    - name: Debug target user
-      debug:
-        msg: "Adding user '{{ target_user }}' to docker group"
-
     - name: Ensure docker group exists
       group:
         name: docker
@@ -64,23 +67,19 @@
       command: usermod -aG docker {{ target_user }}
       changed_when: false
 
-    - name: Verify user is in docker group
-      command: groups {{ target_user }}
-      register: user_groups
-      changed_when: false
+    - name: Verify greetd service is active
+      systemd:
+        name: greetd
+      register: greetd_status
 
-    - name: Show user groups
+    - name: Verify docker service is active
+      systemd:
+        name: docker
+      register: docker_status
+
+    - name: Show service status
       debug:
-        msg: "User groups: {{ user_groups.stdout }}"
-
-    - name: Check /etc/group for docker group
-      command: grep "^docker:" /etc/group
-      register: docker_group_check
-      changed_when: false
-
-    - name: Show docker group membership
-      debug:
-        msg: "Docker group: {{ docker_group_check.stdout }}"
+        msg: "Services - greetd: {{ greetd_status.status.ActiveState }}, docker: {{ docker_status.status.ActiveState }}"
 
   handlers:
     - name: restart greetd

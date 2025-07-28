@@ -58,11 +58,6 @@ else
   echo "⚠️  mise not found, you may need to restart your shell first"
 fi
 
-# Verify services
-echo "✅ Verifying system services..."
-sudo systemctl status greetd --no-pager
-sudo systemctl status docker --no-pager
-
 echo ""
 echo "🎉 Setup complete!"
 echo "💡 Required next step:"
