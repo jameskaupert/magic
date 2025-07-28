@@ -46,7 +46,7 @@ fi
 
 # Apply personal configurations with chezmoi
 echo "🏠 Applying personal configurations..."
-chezmoi init --apply "$TARGET_MAGIC_PATH/chezmoi-source"
+"$HOME/.local/bin/chezmoi" init --apply "$TARGET_MAGIC_PATH/chezmoi-source"
 
 # Initialize mise for development tools
 echo "🛠️  Initializing mise for development tools..."
