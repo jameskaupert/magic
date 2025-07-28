@@ -1,0 +1,16 @@
+filetype plugin on
+
+filetype indent on
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+autocmd BufRead,BufNewFile * match Error /\s\+$/
+
+set autoindent
+
+syntax on
+
+set backspace=indent,eol,start
