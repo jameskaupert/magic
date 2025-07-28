@@ -17,6 +17,15 @@
           - curl
           - wget
           - unzip
+          - eza
+          - fzf
+          - fd
+          - ripgrep
+          - bat
+          - dust
+          - duf
+          - git-delta
+          - jq
           - zsh
           - zsh-completions
           - docker
