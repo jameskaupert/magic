@@ -41,7 +41,7 @@ ansible-playbook ansible/system.yml --ask-become-pass
 # Install chezmoi
 echo "📋 Installing chezmoi..."
 if ! command -v chezmoi >/dev/null; then
-  sh -c "$(curl -fsLS get.chezmoi.io)"
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
 fi
 
 # Apply personal configurations with chezmoi
