@@ -42,11 +42,13 @@ ansible-playbook ansible/system.yml --ask-become-pass
 echo "📋 Installing chezmoi..."
 if ! command -v chezmoi >/dev/null; then
   sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+  # Add ~/.local/bin to PATH for this session
+  export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Apply personal configurations with chezmoi
 echo "🏠 Applying personal configurations..."
-"$HOME/.local/bin/chezmoi" init --apply "$TARGET_MAGIC_PATH/chezmoi-source"
+chezmoi init --apply "$TARGET_MAGIC_PATH/chezmoi-source"
 
 # Initialize mise for development tools
 echo "🛠️  Initializing mise for development tools..."
