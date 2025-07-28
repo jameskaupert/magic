@@ -1,0 +1,63 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    target_user: "{{ ansible_user_id }}"
+  
+  tasks:
+    - name: Update system
+      pacman:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install essential packages
+      pacman:
+        name:
+          - base-devel
+          - git
+          - curl
+          - wget
+          - zsh
+          - zsh-completions
+          - docker
+          - docker-compose
+          - ansible
+        state: present
+
+    - name: Install Hyprland ecosystem
+      pacman:
+        name:
+          - hyprland
+          - waybar
+          - rofi
+          - mako
+          - hyprlock
+          - hypridle
+          - grim
+          - slurp
+          - wl-clipboard
+          - rio
+        state: present
+
+    - name: Configure display and session management
+      include_tasks: tasks/display.yml
+
+    - name: Configure Docker
+      include_tasks: tasks/docker.yml
+
+    - name: Add user to necessary groups
+      user:
+        name: "{{ target_user }}"
+        groups: docker
+        append: yes
+
+  handlers:
+    - name: restart greetd
+      systemd:
+        name: greetd
+        state: restarted
+        
+    - name: restart docker
+      systemd:
+        name: docker
+        state: restarted
