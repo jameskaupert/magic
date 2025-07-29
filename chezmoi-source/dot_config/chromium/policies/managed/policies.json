@@ -1,0 +1,33 @@
+{
+  "ExtensionInstallForcelist": [
+    "cjpalhdlnbpafiamejdnhcphjbkeiagm",
+    "nngceckbapebfimnlniiiahkandclblb",
+    "dbepggeogbaibhgnhhndojpepiihcmeb"
+  ],
+  "ExtensionInstallAllowlist": [
+    "cjpalhdlnbpafiamejdnhcphjbkeiagm",
+    "nngceckbapebfimnlniiiahkandclblb",
+    "dbepggeogbaibhgnhhndojpepiihcmeb"
+  ],
+  "MetricsReportingEnabled": false,
+  "SafeBrowsingEnabled": true,
+  "SafeBrowsingExtendedReportingEnabled": false,
+  "SearchSuggestEnabled": false,
+  "SpellcheckEnabled": true,
+  "TranslateEnabled": false,
+  "AutofillAddressEnabled": false,
+  "AutofillCreditCardEnabled": false,
+  "PasswordManagerEnabled": false,
+  "SyncDisabled": false,
+  "BookmarkBarEnabled": true,
+  "ShowHomeButton": true,
+  "HomepageLocation": "about:blank",
+  "DefaultSearchProviderEnabled": true,
+  "DefaultSearchProviderName": "DuckDuckGo",
+  "DefaultSearchProviderSearchURL": "https://duckduckgo.com/?q={searchTerms}",
+  "BlockThirdPartyCookies": false,
+  "DefaultCookiesSetting": 1,
+  "DefaultGeolocationSetting": 2,
+  "DefaultNotificationsSetting": 2,
+  "DeveloperToolsAvailability": 1
+}
