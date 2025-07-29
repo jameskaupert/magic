@@ -72,6 +72,9 @@
     - name: Configure Docker
       include_tasks: tasks/docker.yml
 
+    - name: Configure browser policies
+      include_tasks: tasks/browser-policies.yml
+
     - name: Ensure docker group exists
       group:
         name: docker

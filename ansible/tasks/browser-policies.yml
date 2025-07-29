@@ -1,0 +1,24 @@
+---
+- name: Create Firefox policies directory
+  file:
+    path: /etc/firefox/policies
+    state: directory
+    mode: '0755'
+
+- name: Install Firefox policies
+  copy:
+    src: firefox-policies.json
+    dest: /etc/firefox/policies/policies.json
+    mode: '0644'
+
+- name: Create Chromium policies directory
+  file:
+    path: /etc/chromium/policies/managed
+    state: directory
+    mode: '0755'
+
+- name: Install Chromium policies
+  copy:
+    src: chromium-policies.json
+    dest: /etc/chromium/policies/managed/policies.json
+    mode: '0644'
