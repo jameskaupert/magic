@@ -28,4 +28,6 @@ if ! command -v zoxide >/dev/null; then
   curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
+npm install -g @anthropic-ai/claude-code
+
 echo "✅ Personal tools setup complete!"
