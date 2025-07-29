@@ -56,6 +56,16 @@
           - rio
         state: present
 
+    - name: Install GUI applications
+      pacman:
+        name:
+          - discord
+          - firefox-developer-edition
+          - chromium
+          - vlc
+          - gimp
+        state: present
+
     - name: Configure display and session management
       include_tasks: tasks/display.yml
 
