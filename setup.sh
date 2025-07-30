@@ -12,7 +12,7 @@ echo ""
 
 # Create workspace structure
 echo "📁 Setting up workspace structure..."
-WORKSPACE_ROOT="$HOME/workspaces/github.com/jameskaupert"
+WORKSPACE_ROOT="$HOME/workspace/github.com/jameskaupert"
 mkdir -p "$WORKSPACE_ROOT"
 
 # Move to proper location if needed
@@ -21,12 +21,12 @@ TARGET_MAGIC_PATH="$WORKSPACE_ROOT/magic"
 
 if [[ "$CURRENT_MAGIC_PATH" != "$TARGET_MAGIC_PATH" ]]; then
   echo "📦 Moving magic repository to workspace location..."
-  
+
   if [[ -d "$TARGET_MAGIC_PATH" ]]; then
     echo "⚠️  Backing up existing magic directory..."
     mv "$TARGET_MAGIC_PATH" "$TARGET_MAGIC_PATH.backup.$(date +%Y%m%d_%H%M%S)"
   fi
-  
+
   mv "$CURRENT_MAGIC_PATH" "$TARGET_MAGIC_PATH"
   echo "✅ Repository moved to: $TARGET_MAGIC_PATH"
   cd "$TARGET_MAGIC_PATH"
@@ -75,3 +75,4 @@ echo "   3. Greeter functionality"
 echo "   4. Development tools: mise list"
 echo ""
 echo "📍 Magic repository location: $TARGET_MAGIC_PATH"
+
