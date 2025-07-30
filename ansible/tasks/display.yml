@@ -40,8 +40,24 @@
     state: stopped
   ignore_errors: yes
 
+- name: Create greetd service override directory
+  file:
+    path: /etc/systemd/system/greetd.service.d
+    state: directory
+    mode: '0755'
+
+- name: Add greetd service delay override
+  copy:
+    dest: /etc/systemd/system/greetd.service.d/delay.conf
+    content: |
+      [Service]
+      ExecStartPre=/bin/sleep 3
+    backup: yes
+  notify: restart greetd
+
 - name: Enable greetd service
   systemd:
     name: greetd
     enabled: yes
     state: started
+    daemon_reload: yes
