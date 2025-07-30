@@ -2,8 +2,13 @@
 
 set -e
 
+# Configuration
+DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:jameskaupert/dotfiles.git}"
+
 echo "🚀 Magic System Setup"
 echo "===================="
+echo "📋 Using dotfiles: $DOTFILES_REPO"
+echo ""
 
 # Create workspace structure
 echo "📁 Setting up workspace structure..."
@@ -48,7 +53,7 @@ fi
 
 # Apply personal configurations with chezmoi
 echo "🏠 Applying personal configurations..."
-chezmoi init --source="$TARGET_MAGIC_PATH/chezmoi-source" --apply
+chezmoi init --apply "$DOTFILES_REPO"
 
 # Initialize mise for development tools
 echo "🛠️  Initializing mise for development tools..."

@@ -17,3 +17,13 @@ cd magic
 ```
 
 This sets up workspace structure, installs system packages, applies personal configs, and initializes development tools.
+
+### Using Custom Dotfiles
+
+To use a different dotfiles repository:
+
+```bash
+DOTFILES_REPO="git@github.com:username/dotfiles.git" ./setup.sh
+```
+
+The dotfiles repository should be chezmoi-compatible and optionally include mise configuration.
