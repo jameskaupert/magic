@@ -32,7 +32,6 @@
     src: greetd.conf.j2
     dest: /etc/greetd/config.toml
     backup: yes
-  notify: restart greetd
 
 - name: Disable getty on tty1 (greetd will handle it)
   systemd:
