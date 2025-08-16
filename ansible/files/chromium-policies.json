@@ -27,5 +27,6 @@
   "DefaultCookiesSetting": 1,
   "DefaultGeolocationSetting": 2,
   "DefaultNotificationsSetting": 2,
-  "DeveloperToolsAvailability": 1
+  "DeveloperToolsAvailability": 1,
+  "RestoreOnStartup": 4
 }
