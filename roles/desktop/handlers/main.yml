@@ -1,0 +1,6 @@
+---
+- name: regenerate initramfs
+  become: true
+  become_user: root
+  ansible.builtin.command:
+    cmd: mkinitcpio -P

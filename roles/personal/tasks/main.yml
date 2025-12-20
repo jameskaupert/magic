@@ -1,0 +1,17 @@
+---
+- name: Set up workspace folder
+  ansible.builtin.file:
+    path: "{{ workspace.path }}"
+    state: directory
+
+- name: Git - Set user.email
+  community.general.git_config:
+    name: user.email
+    value: "{{ personal.git_email }}"
+    scope: global
+
+- name: Git - Set user.name
+  community.general.git_config:
+    name: user.name
+    value: "{{ personal.git_name }}"
+    scope: global

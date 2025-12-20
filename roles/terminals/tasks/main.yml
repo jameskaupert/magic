@@ -1,0 +1,7 @@
+---
+- name: Install terminals from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ terminals }}"
+    state: present

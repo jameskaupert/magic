@@ -1,0 +1,7 @@
+---
+- name: Install CLIs from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ cli_tools }}"
+    state: present

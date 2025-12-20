@@ -1,0 +1,56 @@
+personal:
+  git_email: jameskaupert@gmail.com
+  git_name: "James Kaupert"
+base_packages:
+  - ca-certificates
+  - curl
+  - linux-headers
+  - git
+  - openssh
+  - xclip
+
+browsers:
+  - chromium
+
+cli_tools:
+  - bat
+  - btop
+  - duf
+  - dust
+  - eza
+  - fd
+  - ffmpeg
+  - fzf
+  - github-cli
+  - jq
+  - ripgrep
+  - unzip
+  - wget
+
+desktop:
+  - fuzzel
+  - libinput
+  - niri
+  - nvidia-dkms
+  - nvidia-utils
+  - xwayland-satellite
+  - wayland
+
+fonts:
+  - otf-font-awesome
+  - otf-overpass-nerd
+  - noto-fonts
+  - noto-fonts-emoji
+  - ttf-cascadia-code-nerd
+  - ttf-dejavu
+  - ttf-go-nerd
+  - ttf-iosevka-nerd
+  - ttf-jetbrains-mono-nerd
+  - ttf-liberation
+  - woff2-font-awesome
+
+terminals:
+  - alacritty
+
+workspace:
+  path: $HOME/workspace/github.com/jameskaupert

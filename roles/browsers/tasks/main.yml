@@ -1,0 +1,24 @@
+---
+- name: Install browsers
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ browsers }}"
+    state: present
+  
+- name: Create Chromium policies directory
+  become: true
+  become_user: root
+  file:
+    path: /etc/chromium/policies/managed
+    recurse: true
+    state: directory
+    mode: '0755'
+
+- name: Install Chromium policies
+  become: true
+  become_user: root
+  copy:
+    src: chromium-policies.json
+    dest: /etc/chromium/policies/managed/policies.json
+    mode: '0644'

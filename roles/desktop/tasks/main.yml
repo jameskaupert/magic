@@ -1,0 +1,16 @@
+---
+- name: Install Desktop and Window Management Tooling
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ desktop }}"
+    state: present
+
+- name: Configure mkinitcpio
+  become: true
+  become_user: root
+  ansible.builtin.template:
+    src: mkinitcpio.conf.j2
+    dest: /etc/mkinitcpio.conf
+    backup: yes
+  notify: regenerate initramfs
