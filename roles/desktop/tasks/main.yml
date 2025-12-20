@@ -14,3 +14,20 @@
     dest: /etc/mkinitcpio.conf
     backup: yes
   notify: regenerate initramfs
+
+- name: Create Niri default config path
+  become: true
+  become_user: root
+  file:
+    path: /etc/niri
+    recurse: true
+    state: directory
+    mode: '0755'
+
+- name: Install Niri default config
+  become: true
+  become_user: root
+  copy:
+    src: config.kdl
+    dest: /etc/niri
+    mode: '0644'
