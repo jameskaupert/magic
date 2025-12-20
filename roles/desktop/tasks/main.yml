@@ -35,3 +35,28 @@
 - name: Set Gnome Dark Mode
   ansible.builtin.command:
     cmd: dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
+
+- name: Create Waybar default config path
+  become: true
+  become_user: root
+  file:
+    path: /etc/xdg/waybar
+    recurse: true
+    state: directory
+    mode: '0755'
+
+- name: Install Waybar default config
+  become: true
+  become_user: root
+  copy:
+    src: config.jsonc
+    dest: /etc/xdg/waybar
+    mode: '0644'
+
+- name: Install Waybar default styles
+  become: true
+  become_user: root
+  copy:
+    src: style.css
+    dest: /etc/xdg/waybar
+    mode: '0644'
