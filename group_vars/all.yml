@@ -13,6 +13,9 @@ base_packages:
 audio:
   - pamixer
   - pavucontrol
+  - pipewire-alsa
+  - pipewire-pulse
+  - wireplumber
 
 browsers:
   - chromium
