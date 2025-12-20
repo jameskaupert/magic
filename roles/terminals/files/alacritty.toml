@@ -1,0 +1,62 @@
+[window]
+opacity = 0.8
+blur = true
+padding = { x = 15, y = 12 }
+option_as_alt = "Both"
+
+[font]
+size = 20
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[cursor]
+style = { shape = "Beam", blinking = "Off" }
+
+[colors.primary]
+background = "#1f1f28"
+foreground = "#DCD7BA"
+
+[colors.cursor]
+text = "#1f1f28"
+cursor = "#c4b28a"
+
+[colors.selection]
+text = "#9e9b93"
+background = "#363646"
+
+[colors.normal]
+black = "#0d0c0c"
+red = "#c4746e"
+green = "#8a9a7b"
+yellow = "#c4b28a"
+blue = "#8ba4b0"
+magenta = "#a292a3"
+cyan = "#8ea4a2"
+white = "#c8c093"
+
+[colors.bright]
+black = "#a6a69c"
+red = "#e46876"
+green = "#87a987"
+yellow = "#e6c384"
+blue = "#7fb4ca"
+magenta = "#938aa9"
+cyan = "#7aa89f"
+white = "#c4b28a"
+
+[terminal.shell]
+program = "tmux"

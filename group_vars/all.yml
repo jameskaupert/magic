@@ -24,6 +24,7 @@ cli_tools:
   - github-cli
   - jq
   - ripgrep
+  - tmux
   - unzip
   - wget
 

@@ -5,3 +5,20 @@
   ansible.builtin.package:
     name: "{{ terminals }}"
     state: present
+
+- name: Create Alacritty default config path
+  become: true
+  become_user: root
+  file:
+    path: /etc/alacritty
+    recurse: true
+    state: directory
+    mode: '0755'
+
+- name: Install Alacritty default config
+  become: true
+  become_user: root
+  copy:
+    src: alacritty.toml
+    dest: /etc/alacritty
+    mode: '0644'
