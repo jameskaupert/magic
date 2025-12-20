@@ -1,6 +1,7 @@
 personal:
   git_email: jameskaupert@gmail.com
   git_name: "James Kaupert"
+
 base_packages:
   - ca-certificates
   - curl
@@ -39,6 +40,7 @@ desktop:
   - xdg-desktop-portal-gtk
   - xwayland-satellite
   - wayland
+  - waybar
 
 fonts:
   - otf-font-awesome
