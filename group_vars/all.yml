@@ -12,6 +12,7 @@ base_packages:
 
 audio:
   - pamixer
+  - pavucontrol
 
 browsers:
   - chromium
