@@ -2,11 +2,17 @@
 - hosts: localhost
   vars_files:
     - group_vars/all.yml
+
   roles:
+    # Layer 2: Base
     - { role: base }
+
+    # Layer 3: Shared
     - { role: fonts }
     - { role: cli }
     - { role: desktop }
     - { role: browsers }
     - { role: terminals }
+
+    # Layer 4: Personal
     - { role: personal }

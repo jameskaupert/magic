@@ -24,6 +24,7 @@ cli_tools:
   - fzf
   - github-cli
   - jq
+  - neovim
   - ripgrep
   - tmux
   - unzip
