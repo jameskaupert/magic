@@ -10,6 +10,9 @@ base_packages:
   - openssh
   - xclip
 
+audio:
+  - pamixer
+
 browsers:
   - chromium
 
@@ -55,6 +58,9 @@ fonts:
   - ttf-jetbrains-mono-nerd
   - ttf-liberation
   - woff2-font-awesome
+
+gui_tools:
+  - okular
 
 terminals:
   - alacritty

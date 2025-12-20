@@ -11,8 +11,10 @@
     - { role: fonts }
     - { role: cli }
     - { role: desktop }
+    - { role: audio }
     - { role: browsers }
     - { role: terminals }
+    - { role: gui_tools }
 
     # Layer 4: Personal
     - { role: personal }

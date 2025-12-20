@@ -1,0 +1,7 @@
+---
+- name: Install audio packages from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ audio }}"
+    state: present

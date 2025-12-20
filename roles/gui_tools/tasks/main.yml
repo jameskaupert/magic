@@ -1,0 +1,8 @@
+---
+- name: Install GUI tools from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ gui_tools }}"
+    state: present
+  
