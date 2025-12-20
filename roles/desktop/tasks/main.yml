@@ -31,3 +31,7 @@
     src: config.kdl
     dest: /etc/niri
     mode: '0644'
+
+- name: Set Gnome Dark Mode
+  ansible.builtin.command:
+    cmd: dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
