@@ -17,6 +17,8 @@ audio:
   - pipewire-alsa
   - pipewire-pulse
   - wireplumber
+  - bluez
+  - bluez-utils
 
 browsers:
   - chromium

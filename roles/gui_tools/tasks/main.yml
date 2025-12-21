@@ -6,3 +6,17 @@
     name: "{{ gui_tools }}"
     state: present
   
+- name: LocalSend
+  block:
+    - name: Create destination folder
+      ansible.builtin.file:
+        path: $HOME/.local/bin
+        state: directory
+
+    - name: Download LocalSend AppImage
+      ansible.builtin.get_url:
+        url: https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-linux-x86-64.AppImage
+        dest: $HOME/.local/bin/LocalSend.AppImage
+        mode: '0755'
+
+      
