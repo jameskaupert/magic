@@ -1,0 +1,22 @@
+---
+- name: Install container packages from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ containers }}"
+    state: present
+
+- name: Rancher Desktop
+  block:
+    - name: Create destination folder
+      ansible.builtin.file:
+        path: $HOME/.local/bin
+        state: directory
+
+    - name: Download Rancher Desktop
+      ansible.builtin.get_url:
+        url: https://download.opensuse.org/repositories/isv:/Rancher:/stable/AppImage/rancher-desktop-latest-x86_64.AppImage
+        dest: $HOME/.local/bin/rancher-desktop.AppImage
+        mode: '0755'
+
+      

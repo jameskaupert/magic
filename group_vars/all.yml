@@ -9,6 +9,7 @@ base_packages:
   - git
   - openssh
   - xclip
+  - pass
 
 audio:
   - pamixer
@@ -36,6 +37,11 @@ cli_tools:
   - tmux
   - unzip
   - wget
+
+containers:
+  - docker
+  - docker-compose
+  - fuse2
 
 desktop:
   - fuzzel
