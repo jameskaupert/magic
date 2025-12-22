@@ -6,6 +6,7 @@
   roles:
     # Layer 2: Base
     - { role: base }
+    - { role: networking }
 
     # Layer 3: Shared
     - { role: package-managers }

@@ -1,0 +1,17 @@
+---
+- name: Ensure resolv.conf symlinked
+  become: yes
+  become_user: root
+  ansible.builtin.file:
+    src: /run/systemd/resolve/stub-resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+    force: yes
+
+- name: Ensure systemd-resolved is enabled and running
+  become: yes
+  become_user: root
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: started
+    enabled: yes

@@ -95,6 +95,8 @@ gui_tools:
       url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.10.6/Obsidian-1.10.6.AppImage
 
 package_management:
+  packages:
+    - base-devel
   appimage_path: "{{ ansible_facts['env']['HOME'] }}/.local/bin"
   desktop_entry_path: "{{ ansible_facts['env']['HOME'] }}/.local/share/applications"
 

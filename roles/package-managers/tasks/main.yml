@@ -1,12 +1,47 @@
 ---
-- name: Ensure ~/.local/bin exists
-  ansible.builtin.file:
-    path: "{{ package_management.appimage_path }}"
-    state: directory
-    mode: "0755"
+- name: Install packages from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ package_management.packages }}"
+    state: present
+  
+- name: AppImage
+  block:
+    - name: Ensure ~/.local/bin exists
+      ansible.builtin.file:
+        path: "{{ package_management.appimage_path }}"
+        state: directory
+        mode: "0755"
 
-- name: Install appimage-desktop-entry script
-  ansible.builtin.copy:
-    src: appimage-desktop-entry
-    dest: "{{ package_management.appimage_path }}/appimage-desktop-entry"
-    mode: "0755"
+    - name: Install appimage-desktop-entry script
+      ansible.builtin.copy:
+        src: appimage-desktop-entry
+        dest: "{{ package_management.appimage_path }}/appimage-desktop-entry"
+        mode: "0755"
+
+- name: AUR
+  become: yes
+  become_user: root
+  block:
+    - name: Create `aur_builder` user
+      ansible.builtin.user:
+        name: aur_builder
+        create_home: yes
+        group: wheel
+
+    - name: Allow `aur_builder` to run `sudo pacman`
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+        create: yes
+        mode: '0644'
+        validate: 'visudo -cf %s'
+
+    - name: Install yay
+      become: yes
+      become_user: aur_builder
+      kewlfft.aur.aur:
+        name: yay
+        use: makepkg
+        state: present

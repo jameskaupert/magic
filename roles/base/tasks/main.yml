@@ -1,7 +1,13 @@
 ---
-- name: Install base system packages
+- name: Base Packages
   become: true
   become_user: root
-  ansible.builtin.package:
-    name: "{{ base_packages }}"
-    state: present
+  block:
+    - name: Update package cache
+      community.general.pacman:
+        update_cache: yes
+
+    - name: Install base system packages
+      ansible.builtin.package:
+        name: "{{ base_packages }}"
+        state: present
