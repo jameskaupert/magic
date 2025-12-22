@@ -1,11 +1,13 @@
 {
   "ExtensionInstallForcelist": [
     "nngceckbapebfimnlniiiahkandclblb",
-    "dbepggeogbaibhgnhhndojpepiihcmeb"
+    "dbepggeogbaibhgnhhndojpepiihcmeb",
+    "pljkdepedlaeibebpmkckpefajpjkcak"
   ],
   "ExtensionInstallAllowlist": [
     "nngceckbapebfimnlniiiahkandclblb",
-    "dbepggeogbaibhgnhhndojpepiihcmeb"
+    "dbepggeogbaibhgnhhndojpepiihcmeb",
+    "pljkdepedlaeibebpmkckpefajpjkcak"
   ],
   "MetricsReportingEnabled": false,
   "SafeBrowsingEnabled": true,
