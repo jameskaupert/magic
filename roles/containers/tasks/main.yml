@@ -3,20 +3,18 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ containers }}"
+    name: "{{ containers.packages }}"
     state: present
 
 - name: Rancher Desktop
   block:
-    - name: Create destination folder
-      ansible.builtin.file:
-        path: $HOME/.local/bin
-        state: directory
-
-    - name: Download Rancher Desktop
+    - name: Download AppImage
       ansible.builtin.get_url:
-        url: https://download.opensuse.org/repositories/isv:/Rancher:/stable/AppImage/rancher-desktop-latest-x86_64.AppImage
-        dest: $HOME/.local/bin/rancher-desktop.AppImage
+        url: "{{ containers.appimages.rancher_desktop.url }}"
+        dest: "{{ containers.appimages.rancher_desktop.appimage_path }}"
         mode: '0755'
 
-      
+    - name: Create desktop entry
+      ansible.builtin.command:
+        cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ containers.appimages.rancher_desktop.appimage_path }}"
+        creates: "{{ containers.appimages.rancher_desktop.desktop_entry_path }}"

@@ -41,9 +41,16 @@ cli_tools:
   - wget
 
 containers:
-  - docker
-  - docker-compose
-  - fuse2
+  packages:
+    - docker
+    - docker-compose
+    - fuse2
+  appimages:
+    rancher_desktop:
+      name: Rancher Desktop
+      appimage_path: "{{ package_management.appimage_path }}/RancherDesktop.AppImage"
+      desktop_entry_path: "{{ package_management.desktop_entry_path }}/rancher_desktop.desktop"
+      url: https://download.opensuse.org/repositories/isv:/Rancher:/stable/AppImage/rancher-desktop-latest-x86_64.AppImage
 
 desktop:
   - fuzzel
