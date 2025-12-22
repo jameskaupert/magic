@@ -53,17 +53,20 @@ containers:
       url: https://download.opensuse.org/repositories/isv:/Rancher:/stable/AppImage/rancher-desktop-latest-x86_64.AppImage
 
 desktop:
-  - fuzzel
-  - gnome-keyring
-  - libinput
-  - niri
-  - nvidia-dkms
-  - nvidia-utils
-  - xdg-desktop-portal-gnome
-  - xdg-desktop-portal-gtk
-  - xwayland-satellite
-  - wayland
-  - waybar
+  packages:
+    - cage
+    - fuzzel
+    - gnome-keyring
+    - greetd
+    - libinput
+    - niri
+    - nvidia-dkms
+    - nvidia-utils
+    - xdg-desktop-portal-gnome
+    - xdg-desktop-portal-gtk
+    - xwayland-satellite
+    - wayland
+    - waybar
 
 fonts:
   - otf-font-awesome

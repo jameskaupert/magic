@@ -3,7 +3,7 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ desktop }}"
+    name: "{{ desktop.packages }}"
     state: present
 
 - name: Configure mkinitcpio
@@ -15,48 +15,82 @@
     backup: yes
   notify: regenerate initramfs
 
-- name: Create Niri default config path
+- name: Niri
   become: true
   become_user: root
-  file:
-    path: /etc/niri
-    recurse: true
-    state: directory
-    mode: '0755'
+  block:
+    - name: Create Niri default config path
+      file:
+        path: /etc/niri
+        recurse: true
+        state: directory
+        mode: '0755'
 
-- name: Install Niri default config
-  become: true
-  become_user: root
-  copy:
-    src: config.kdl
-    dest: /etc/niri
-    mode: '0644'
+    - name: Install Niri default config
+      copy:
+        src: config.kdl
+        dest: /etc/niri
+        mode: '0644'
 
 - name: Set Gnome Dark Mode
   ansible.builtin.command:
     cmd: dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
 
-- name: Create Waybar default config path
+- name: Waybar
   become: true
   become_user: root
-  file:
-    path: /etc/xdg/waybar
-    recurse: true
-    state: directory
-    mode: '0755'
+  block:
+    - name: Create Waybar default config path
+      file:
+        path: /etc/xdg/waybar
+        recurse: true
+        state: directory
+        mode: '0755'
 
-- name: Install Waybar default config
-  become: true
-  become_user: root
-  copy:
-    src: config.jsonc
-    dest: /etc/xdg/waybar
-    mode: '0644'
+    - name: Install Waybar default config
+      copy:
+        src: config.jsonc
+        dest: /etc/xdg/waybar
+        mode: '0644'
 
-- name: Install Waybar default styles
-  become: true
+    - name: Install Waybar default styles
+      copy:
+        src: style.css
+        dest: /etc/xdg/waybar
+        mode: '0644'
+
+- name: Install regreet
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name: greetd-regreet-git
+    use: yay
+    state: present
+
+- name: greetd
+  become: yes
   become_user: root
-  copy:
-    src: style.css
-    dest: /etc/xdg/waybar
-    mode: '0644'
+  block:
+    - name: Configure greetd
+      ansible.builtin.copy:
+        src: greetd-config.toml
+        dest: /etc/greetd/config.toml
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Ensure greeter user is in video group
+      ansible.builtin.user:
+        name: greeter
+        groups: video
+        append: yes
+
+    - name: Enable greetd service
+      ansible.builtin.systemd:
+        name: greetd
+        enabled: yes
+
+    - name: Set graphical target as default
+      ansible.builtin.command:
+        cmd: systemctl set-default graphical.target
+      changed_when: false

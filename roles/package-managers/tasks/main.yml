@@ -29,6 +29,7 @@
         name: aur_builder
         create_home: yes
         group: wheel
+        system: yes
 
     - name: Allow `aur_builder` to run `sudo pacman`
       ansible.builtin.lineinfile:
