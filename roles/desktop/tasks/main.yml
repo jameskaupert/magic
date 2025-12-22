@@ -59,13 +59,24 @@
         dest: /etc/xdg/waybar
         mode: '0644'
 
-- name: Install regreet
-  become: yes
-  become_user: aur_builder
-  kewlfft.aur.aur:
-    name: greetd-regreet-git
-    use: yay
-    state: present
+- name: Regreet
+  block:
+    - name: Install regreet
+      become: yes
+      become_user: aur_builder
+      kewlfft.aur.aur:
+        name: greetd-regreet-git
+        use: yay
+        state: present
+    - name: Configure regreet
+      become: yes
+      become_user: root
+      ansible.builtin.copy:
+        src: regreet.toml
+        dest: /etc/greetd/regreet.toml
+        owner: root
+        group: root
+        mode: '0644'
 
 - name: greetd
   become: yes
