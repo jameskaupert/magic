@@ -1,0 +1,35 @@
+# General
+max-visible=5
+default-timeout=5000
+layer=overlay
+anchor=top-right
+
+# Appearance
+font=JetBrainsMono Nerd Font 12
+width=350
+height=150
+margin=15
+padding=15
+border-size=2
+border-radius=8
+icons=1
+max-icon-size=48
+
+# Colors (Kanagawa)
+background-color=#1f1f28e6
+text-color=#dcd7ba
+border-color=#8ba4b0
+progress-color=over #8a9a7b
+
+# Urgency overrides
+[urgency=low]
+border-color=#363646
+
+[urgency=high]
+border-color=#c4746e
+default-timeout=0
+
+[urgency=critical]
+border-color=#e46876
+background-color=#1f1f28ff
+default-timeout=0

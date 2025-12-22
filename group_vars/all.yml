@@ -59,6 +59,7 @@ desktop:
     - gnome-keyring
     - greetd
     - libinput
+    - mako
     - niri
     - nvidia-dkms
     - nvidia-utils

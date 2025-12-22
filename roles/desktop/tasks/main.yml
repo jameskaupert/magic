@@ -113,3 +113,17 @@
       ansible.builtin.command:
         cmd: systemctl set-default graphical.target
       changed_when: false
+
+- name: Mako
+  block:
+    - name: Ensure config directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_facts['env']['HOME'] }}/.config/mako"
+        state: directory
+        mode: '0755'
+
+    - name: Copy mako config
+      ansible.builtin.copy:
+        src: files/mako-config
+        dest: "{{ ansible_facts['env']['HOME'] }}/.config/mako/config"
+        mode: '0644'
