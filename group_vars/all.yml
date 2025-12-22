@@ -84,6 +84,8 @@ fonts:
 gui_tools:
   packages:
     - okular
+    - pdfarranger
+
   appimages:
     localsend:
       name: LocalSend
