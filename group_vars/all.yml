@@ -72,7 +72,24 @@ fonts:
   - woff2-font-awesome
 
 gui_tools:
-  - okular
+  packages:
+    - okular
+  appimages:
+    localsend:
+      name: LocalSend
+      appimage_path: "{{ package_management.appimage_path }}/LocalSend.AppImage"
+      desktop_entry_path: "{{ package_management.desktop_entry_path }}/localsend.desktop"
+      url: https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-linux-x86-64.AppImage
+
+    obsidian:
+      name: Obsidian
+      appimage_path: "{{ package_management.appimage_path }}/Obsidian.AppImage"
+      desktop_entry_path: "{{ package_management.desktop_entry_path }}/obsidian.desktop"
+      url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.10.6/Obsidian-1.10.6.AppImage
+
+package_management:
+  appimage_path: "{{ ansible_facts['env']['HOME'] }}/.local/bin"
+  desktop_entry_path: "{{ ansible_facts['env']['HOME'] }}/.local/share/applications"
 
 terminals:
   - alacritty

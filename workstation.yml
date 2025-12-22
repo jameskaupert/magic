@@ -8,6 +8,7 @@
     - { role: base }
 
     # Layer 3: Shared
+    - { role: package-managers }
     - { role: fonts }
     - { role: cli }
     - { role: containers }

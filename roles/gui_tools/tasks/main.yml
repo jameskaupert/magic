@@ -1,27 +1,37 @@
 ---
+- name: Ensure package-managers tools available
+  ansible.builtin.include_role:
+    name: package-managers
+
 - name: Install GUI tools from Pacman
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ gui_tools }}"
+    name: "{{ gui_tools.packages }}"
     state: present
-  
+
 - name: LocalSend
   block:
-    - name: Create destination folder
-      ansible.builtin.file:
-        path: $HOME/.local/bin
-        state: directory
-
     - name: Download LocalSend AppImage
       ansible.builtin.get_url:
-        url: https://github.com/localsend/localsend/releases/download/v1.17.0/LocalSend-1.17.0-linux-x86-64.AppImage
-        dest: $HOME/.local/bin/LocalSend.AppImage
+        url: "{{ gui_tools.appimages.localsend.url }}"
+        dest: "{{ gui_tools.appimages.localsend.appimage_path }}"
         mode: '0755'
 
-- name: Download Obsidian AppImage
-  ansible.builtin.get_url:
-    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.10.6/Obsidian-1.10.6.AppImage
-    dest: $HOME/.local/bin/Obsidian.AppImage
-    mode: '0755'
+    - name: Create desktop entry
+      ansible.builtin.command:
+        cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ gui_tools.appimages.localsend.appimage_path }}"
+        creates: "{{ gui_tools.appimages.localsend.desktop_entry_path }}"
 
+- name: Obsidian
+  block:
+    - name: Download AppImage
+      ansible.builtin.get_url:
+        url: "{{ gui_tools.appimages.obsidian.url }}"
+        dest: "{{ gui_tools.appimages.obsidian.appimage_path }}"
+        mode: '0755'
+
+    - name: Create desktop entry
+      ansible.builtin.command:
+        cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ gui_tools.appimages.obsidian.appimage_path }}"
+        creates: "{{ gui_tools.appimages.obsidian.desktop_entry_path }}"

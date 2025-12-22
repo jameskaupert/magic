@@ -1,0 +1,12 @@
+---
+- name: Ensure ~/.local/bin exists
+  ansible.builtin.file:
+    path: "{{ package_management.appimage_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Install appimage-desktop-entry script
+  ansible.builtin.copy:
+    src: appimage-desktop-entry
+    dest: "{{ package_management.appimage_path }}/appimage-desktop-entry"
+    mode: "0755"

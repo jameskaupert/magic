@@ -1,0 +1,100 @@
+#!/bin/bash
+set -euo pipefail
+
+# Creates a .desktop entry for an AppImage, extracting its bundled icon
+
+usage() {
+    echo "Usage: $(basename "$0") <appimage-path> [display-name]"
+    echo ""
+    echo "Arguments:"
+    echo "  appimage-path   Path to the AppImage file"
+    echo "  display-name    Optional; derived from filename if not provided"
+    exit 1
+}
+
+[[ $# -lt 1 ]] && usage
+
+APPIMAGE_PATH="$(realpath "$1")"
+APPIMAGE_BASENAME="$(basename "$APPIMAGE_PATH")"
+APP_NAME="${APPIMAGE_BASENAME%.AppImage}"
+DISPLAY_NAME="${2:-$APP_NAME}"
+
+ICON_DIR="$HOME/.local/share/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+TEMP_DIR="$(mktemp -d)"
+
+cleanup() {
+    rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
+
+if [[ ! -f "$APPIMAGE_PATH" ]]; then
+    echo "Error: AppImage not found at $APPIMAGE_PATH" >&2
+    exit 1
+fi
+
+if [[ ! -x "$APPIMAGE_PATH" ]]; then
+    echo "Error: AppImage is not executable. Run: chmod +x $APPIMAGE_PATH" >&2
+    exit 1
+fi
+
+mkdir -p "$ICON_DIR" "$DESKTOP_DIR"
+
+echo "Extracting AppImage contents..."
+cd "$TEMP_DIR"
+"$APPIMAGE_PATH" --appimage-extract >/dev/null 2>&1
+
+# Find the icon - check common locations and formats
+ICON_SRC=""
+ICON_EXT=""
+for candidate in \
+    "squashfs-root/${APP_NAME,,}.png" \
+    "squashfs-root/${APP_NAME,,}.svg" \
+    "squashfs-root/${APP_NAME}.png" \
+    "squashfs-root/${APP_NAME}.svg" \
+    "squashfs-root/.DirIcon" \
+    "squashfs-root/"*.png \
+    "squashfs-root/"*.svg; do
+    if [[ -f $candidate ]]; then
+        ICON_SRC="$candidate"
+        break
+    fi
+done
+
+if [[ -z "$ICON_SRC" ]]; then
+    echo "Warning: No icon found in AppImage. Desktop entry will have no icon." >&2
+    ICON_LINE=""
+else
+    # Determine extension (DirIcon is typically PNG)
+    if [[ "$ICON_SRC" == *".svg" ]]; then
+        ICON_EXT="svg"
+    else
+        ICON_EXT="png"
+    fi
+    ICON_DEST="$ICON_DIR/${APP_NAME,,}.$ICON_EXT"
+    cp "$ICON_SRC" "$ICON_DEST"
+    echo "Icon installed to $ICON_DEST"
+    ICON_LINE="Icon=${APP_NAME,,}"
+fi
+
+DESKTOP_FILE="$DESKTOP_DIR/${APP_NAME,,}.desktop"
+cat > "$DESKTOP_FILE" << EOF
+[Desktop Entry]
+Type=Application
+Name=$DISPLAY_NAME
+Exec=$APPIMAGE_PATH
+$ICON_LINE
+Categories=Utility;
+Comment=AppImage application
+Terminal=false
+EOF
+
+chmod +x "$DESKTOP_FILE"
+echo "Desktop entry created at $DESKTOP_FILE"
+
+# Update desktop database if available
+if command -v update-desktop-database &>/dev/null; then
+    update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
+fi
+
+echo "Done. $DISPLAY_NAME should now appear in your application launcher."
