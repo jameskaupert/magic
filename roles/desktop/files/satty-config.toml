@@ -1,0 +1,16 @@
+[general]
+fullscreen = true
+output-filename = "~/Pictures/Screenshots/satty-%Y%m%d-%H%M%S.png"
+copy-command = "wl-copy"
+early-exit = true
+initial-tool = "arrow"
+
+[color-palette]
+palette = [
+  "#c4746e",
+  "#8a9a7b",
+  "#c4b28a",
+  "#8ba4b0",
+  "#a292a3",
+  "#dcd7ba"
+]

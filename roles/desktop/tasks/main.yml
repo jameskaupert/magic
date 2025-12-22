@@ -127,3 +127,17 @@
         src: files/mako-config
         dest: "{{ ansible_facts['env']['HOME'] }}/.config/mako/config"
         mode: '0644'
+
+- name: Satty
+  block:
+    - name: Ensure config directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_facts['env']['HOME'] }}/.config/satty"
+        state: directory
+        mode: '0755'
+
+    - name: Copy satty config
+      ansible.builtin.copy:
+        src: files/satty-config.toml
+        dest: "{{ ansible_facts['env']['HOME'] }}/.config/satty/config.toml"
+        mode: '0644'

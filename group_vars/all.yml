@@ -55,19 +55,24 @@ containers:
 desktop:
   packages:
     - cage
+    - cliphist
     - fuzzel
     - gnome-keyring
     - greetd
+    - grim
     - libinput
     - mako
     - niri
     - nvidia-dkms
     - nvidia-utils
+    - satty
+    - slurp
     - xdg-desktop-portal-gnome
     - xdg-desktop-portal-gtk
     - xwayland-satellite
     - wayland
     - waybar
+    - wl-clipboard
 
 fonts:
   - otf-font-awesome
