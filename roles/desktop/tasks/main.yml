@@ -32,6 +32,14 @@
         dest: /etc/niri
         mode: '0644'
 
+- name: Configure Fuzzel
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    src: fuzzel.ini
+    dest: /etc/xdg/fuzzel
+    mode: '0644'
+
 - name: Set Gnome Dark Mode
   ansible.builtin.command:
     cmd: dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
