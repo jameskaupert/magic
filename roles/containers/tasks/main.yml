@@ -18,3 +18,28 @@
       ansible.builtin.command:
         cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ containers.appimages.rancher_desktop.appimage_path }}"
         creates: "{{ containers.appimages.rancher_desktop.desktop_entry_path }}"
+
+- name: DevPod
+  block:
+    - name: Get latest DevPod release version from GitHub
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/loft-sh/devpod/releases/latest
+        return_content: true
+      register: devpod_release
+
+    - name: Check installed DevPod version
+      ansible.builtin.command:
+        cmd: devpod version
+      register: devpod_installed
+      changed_when: false
+      failed_when: false
+
+    - name: Install DevPod CLI
+      become: true
+      become_user: root
+      ansible.builtin.get_url:
+        url: "https://github.com/loft-sh/devpod/releases/download/{{ devpod_release.json.tag_name }}/devpod-linux-amd64"
+        dest: /usr/local/bin/devpod
+        mode: '0755'
+        force: true
+      when: devpod_installed.rc != 0 or devpod_release.json.tag_name not in devpod_installed.stdout
