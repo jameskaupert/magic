@@ -3,5 +3,5 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ cli_tools }}"
+    name: "{{ cli_tools.packages }}"
     state: present

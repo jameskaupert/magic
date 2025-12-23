@@ -3,5 +3,5 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ fonts }}"
+    name: "{{ fonts.packages }}"
     state: present

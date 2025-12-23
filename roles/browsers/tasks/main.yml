@@ -3,7 +3,7 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ browsers }}"
+    name: "{{ browsers.packages }}"
     state: present
   
 - name: Create Chromium policies directory

@@ -9,5 +9,5 @@
 
     - name: Install base system packages
       ansible.builtin.package:
-        name: "{{ base_packages }}"
+        name: "{{ base_packages.packages }}"
         state: present

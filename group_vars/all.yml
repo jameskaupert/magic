@@ -3,42 +3,46 @@ personal:
   git_name: "James Kaupert"
 
 base_packages:
-  - ca-certificates
-  - curl
-  - linux-headers
-  - git
-  - openssh
-  - xclip
-  - pass
+  packages:
+    - ca-certificates
+    - curl
+    - linux-headers
+    - git
+    - openssh
+    - xclip
+    - pass
 
 audio:
-  - pamixer
-  - pavucontrol
-  - pipewire-alsa
-  - pipewire-pulse
-  - wireplumber
-  - bluez
-  - bluez-utils
+  packages:
+    - pamixer
+    - pavucontrol
+    - pipewire-alsa
+    - pipewire-pulse
+    - wireplumber
+    - bluez
+    - bluez-utils
 
 browsers:
-  - chromium
+  packages:
+    - chromium
 
 cli_tools:
-  - bat
-  - btop
-  - duf
-  - dust
-  - eza
-  - fd
-  - ffmpeg
-  - fzf
-  - github-cli
-  - jq
-  - neovim
-  - ripgrep
-  - tmux
-  - unzip
-  - wget
+  packages:
+    - bat
+    - btop
+    - duf
+    - dust
+    - eza
+    - fd
+    - ffmpeg
+    - fzf
+    - github-cli
+    - jq
+    - neovim
+    - ripgrep
+    - tmux
+    - unzip
+    - wget
 
 containers:
   packages:
@@ -75,17 +79,18 @@ desktop:
     - wl-clipboard
 
 fonts:
-  - otf-font-awesome
-  - otf-overpass-nerd
-  - noto-fonts
-  - noto-fonts-emoji
-  - ttf-cascadia-code-nerd
-  - ttf-dejavu
-  - ttf-go-nerd
-  - ttf-iosevka-nerd
-  - ttf-jetbrains-mono-nerd
-  - ttf-liberation
-  - woff2-font-awesome
+  packages:
+    - otf-font-awesome
+    - otf-overpass-nerd
+    - noto-fonts
+    - noto-fonts-emoji
+    - ttf-cascadia-code-nerd
+    - ttf-dejavu
+    - ttf-go-nerd
+    - ttf-iosevka-nerd
+    - ttf-jetbrains-mono-nerd
+    - ttf-liberation
+    - woff2-font-awesome
 
 gui_tools:
   packages:
@@ -112,7 +117,8 @@ package_management:
   desktop_entry_path: "{{ ansible_facts['env']['HOME'] }}/.local/share/applications"
 
 terminals:
-  - alacritty
+  packages:
+    - alacritty
 
 workspace:
   path: $HOME/workspace/github.com/jameskaupert
