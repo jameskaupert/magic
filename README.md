@@ -3,7 +3,9 @@ Repo for quickly setting up my machines - like *magic*!
 
 Uses Ansible to achieve desired state. Continual work in progress.
 
-## Mental Model
+Currently just for Arch Linux using Niri.
+
+## Mental Model (work in progress)
 Layer 1: Bootstrap - anything to get the machine into the state to do the rest of the setup
 Layer 2: Base - anything every machine might need
 Layer 3: Shared - anything specific machines (ie: desktop workstations) might need, agnostic to user
