@@ -3,7 +3,7 @@
   become: true
   become_user: root
   ansible.builtin.package:
-    name: "{{ terminals }}"
+    name: "{{ terminals.packages }}"
     state: present
 
 - name: Create Alacritty default config path

@@ -5,3 +5,11 @@
   ansible.builtin.package:
     name: "{{ audio.packages }}"
     state: present
+
+- name: Start and Enable Bluetooth
+  become: true
+  become_user: root
+  ansible.builtin.systemd:
+    name: bluetooth
+    state: started
+    enabled: true
