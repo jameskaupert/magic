@@ -94,6 +94,7 @@ fonts:
 
 gui_tools:
   packages:
+    - calibre
     - okular
     - pdfarranger
 
