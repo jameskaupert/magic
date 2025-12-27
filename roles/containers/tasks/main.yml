@@ -6,18 +6,13 @@
     name: "{{ containers.packages }}"
     state: present
 
-- name: Rancher Desktop
-  block:
-    - name: Download AppImage
-      ansible.builtin.get_url:
-        url: "{{ containers.appimages.rancher_desktop.url }}"
-        dest: "{{ containers.appimages.rancher_desktop.appimage_path }}"
-        mode: '0755'
-
-    - name: Create desktop entry
-      ansible.builtin.command:
-        cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ containers.appimages.rancher_desktop.appimage_path }}"
-        creates: "{{ containers.appimages.rancher_desktop.desktop_entry_path }}"
+- name: Enable Podman socket for user
+  become: false
+  ansible.builtin.systemd_service:
+    name: podman.socket
+    enabled: true
+    state: started
+    scope: user
 
 - name: DevPod
   block:
