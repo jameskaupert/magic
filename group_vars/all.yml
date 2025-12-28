@@ -55,6 +55,7 @@ desktop:
     - cage
     - cliphist
     - fuzzel
+    - gnome-keyring
     - greetd
     - grim
     - libinput
