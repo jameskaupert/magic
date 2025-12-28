@@ -6,13 +6,26 @@
     name: "{{ containers.packages }}"
     state: present
 
-- name: Enable Podman socket for user
-  become: false
-  ansible.builtin.systemd_service:
-    name: podman.socket
-    enabled: true
-    state: started
-    scope: user
+- name: Podman
+  block:
+    - name: Enable Podman socket for user
+      become: false
+      ansible.builtin.systemd_service:
+        name: podman.socket
+        enabled: true
+        state: started
+        scope: user
+    - name: Create Docker config directory
+      ansible.builtin.file:
+        path: ~/.docker
+        state: directory
+        mode: '0755'
+
+    - name: Configure Docker credential store
+      ansible.builtin.copy:
+        content: '{"credsStore": ""}'
+        dest: ~/.docker/config.json
+        mode: '0600'
 
 - name: DevPod
   block:
