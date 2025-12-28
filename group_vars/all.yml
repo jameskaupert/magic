@@ -48,6 +48,7 @@ containers:
   packages:
     - podman
     - podman-docker
+    - k9s
 
 desktop:
   packages:
