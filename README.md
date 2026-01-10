@@ -12,3 +12,10 @@ Layer 3: Shared - anything specific machines (ie: desktop workstations) might ne
 Layer 4: Personal - my specific apps and preferences
 
 These layers exist to guide my thinking on which things belong together.
+
+## Installation
+Clone the repo, `cd` into magic folder, then:
+```
+sudo pacman -Syu ansible
+ansible-playbook workstation.yml -K
+```
