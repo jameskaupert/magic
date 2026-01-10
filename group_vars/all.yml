@@ -71,6 +71,7 @@ desktop:
     - wayland
     - waybar
     - wl-clipboard
+    - wlsunset
 
 fonts:
   packages:
