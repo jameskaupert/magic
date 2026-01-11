@@ -1,4 +1,16 @@
 ---
+- name: Configure Pacman
+  become: true
+  become_user: root
+  ansible.builtin.template:
+    src: pacman.conf.j2
+    dest: /etc/pacman.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+  notify: Refresh pacman databases
+
 - name: Base Packages
   become: true
   become_user: root
@@ -11,3 +23,4 @@
       ansible.builtin.package:
         name: "{{ base_packages.packages }}"
         state: present
+

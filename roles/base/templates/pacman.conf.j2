@@ -1,0 +1,60 @@
+#
+# /etc/pacman.conf
+#
+# See the pacman.conf(5) manpage for option and repository directives
+#
+# {{ ansible_managed }}
+
+#
+# GENERAL OPTIONS
+#
+[options]
+HoldPkg     = pacman glibc
+Architecture = auto
+
+# Misc options
+#UseSyslog
+{% if pacman_color | default(true) %}
+Color
+{% endif %}
+#NoProgressBar
+CheckSpace
+{% if pacman_verbose_pkg_lists | default(false) %}
+VerbosePkgLists
+{% endif %}
+{% if pacman_parallel_downloads | default(0) > 0 %}
+ParallelDownloads = {{ pacman_parallel_downloads }}
+{% endif %}
+
+SigLevel    = Required DatabaseOptional
+LocalFileSigLevel = Optional
+
+#
+# REPOSITORIES
+#
+
+{% if pacman_enable_testing | default(false) %}
+[core-testing]
+Include = /etc/pacman.d/mirrorlist
+
+{% endif %}
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+{% if pacman_enable_testing | default(false) %}
+[extra-testing]
+Include = /etc/pacman.d/mirrorlist
+
+{% endif %}
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+{% if pacman_enable_multilib_testing | default(false) %}
+[multilib-testing]
+Include = /etc/pacman.d/mirrorlist
+
+{% endif %}
+{% if pacman_enable_multilib | default(false) %}
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+{% endif %}

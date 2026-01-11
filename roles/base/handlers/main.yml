@@ -1,0 +1,5 @@
+---
+- name: Refresh pacman databases
+  ansible.builtin.command:
+    cmd: pacman -Sy
+  changed_when: true

@@ -1,0 +1,12 @@
+---
+# Pacman config options
+
+# General
+pacman_color: true
+pacman_parallel_downloads: 5
+pacman_verbose_pkg_lists: false
+
+# Repositories
+pacman_enable_multilib: true
+pacman_enable_testing: false
+pacman_enable_multilib_testing: false
