@@ -24,3 +24,19 @@
         name: "{{ base_packages.packages }}"
         state: present
 
+- name: Create service-restart group
+  become: true
+  become_user: root
+  ansible.builtin.group:
+    name: service-restart
+    state: present
+
+- name: Allow service-restart group to restart iwd without password
+  community.general.sudoers:
+    name: iwd-restart
+    group: service-restart
+    commands:
+      - /usr/bin/systemctl restart iwd.service
+    nopassword: true
+    state: present
+  become: true

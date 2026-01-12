@@ -15,3 +15,11 @@
     name: user.name
     value: "{{ personal.git_name }}"
     scope: global
+
+- name: Add user to service-restart group
+  become: true
+  become_user: root
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    groups: service-restart
+    append: true
