@@ -11,6 +11,8 @@ base_packages:
     - openssh
     - xclip
     - pass
+    - vi
+    - vim
 
 audio:
   packages:
