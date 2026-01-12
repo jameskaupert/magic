@@ -92,6 +92,8 @@ gui_tools:
     - calibre
     - okular
     - pdfarranger
+    - steam
+    - lib32-nvidia-utils
 
   appimages:
     localsend:
