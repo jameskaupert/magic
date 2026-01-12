@@ -108,6 +108,12 @@ gui_tools:
       desktop_entry_path: "{{ package_management.desktop_entry_path }}/obsidian.desktop"
       url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.10.6/Obsidian-1.10.6.AppImage
 
+    cursor_ai:
+      name: CursorAI
+      appimage_path: "{{ package_management.appimage_path }}/CursorAI.AppImage"
+      desktop_entry_path: "{{ package_management.desktop_entry_path }}/cursor_ai.desktop"
+      url: https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/2.3
+
 package_management:
   packages:
     - base-devel

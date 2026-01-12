@@ -17,6 +17,11 @@
         url: "{{ gui_tools.appimages.localsend.url }}"
         dest: "{{ gui_tools.appimages.localsend.appimage_path }}"
         mode: '0755'
+        timeout: 60
+      retries: 3
+      delay: 5
+      register: localsend_download
+      until: localsend_download is succeeded
 
     - name: Create desktop entry
       ansible.builtin.command:
@@ -30,8 +35,33 @@
         url: "{{ gui_tools.appimages.obsidian.url }}"
         dest: "{{ gui_tools.appimages.obsidian.appimage_path }}"
         mode: '0755'
+        timeout: 60
+      retries: 3
+      delay: 5
+      register: obsidian_download
+      until: obsidian_download is succeeded
 
     - name: Create desktop entry
       ansible.builtin.command:
         cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ gui_tools.appimages.obsidian.appimage_path }}"
         creates: "{{ gui_tools.appimages.obsidian.desktop_entry_path }}"
+
+- name: Cursor
+  block:
+    - name: Download AppImage
+      ansible.builtin.get_url:
+        url: "{{ gui_tools.appimages.cursor_ai.url }}"
+        dest: "{{ gui_tools.appimages.cursor_ai.appimage_path }}"
+        mode: '0755'
+        timeout: 60
+      retries: 3
+      delay: 5
+      register: cursor_download
+      until: cursor_download is succeeded
+
+    - name: Create desktop entry
+      ansible.builtin.command:
+        cmd: "{{ package_management.appimage_path }}/appimage-desktop-entry {{ gui_tools.appimages.cursor_ai.appimage_path }}"
+        creates: "{{ gui_tools.appimages.cursor_ai.desktop_entry_path }}"
+
+
