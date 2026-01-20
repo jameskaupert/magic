@@ -92,6 +92,7 @@ fonts:
 gui_tools:
   packages:
     - calibre
+    - mpv
     - okular
     - pdfarranger
     - steam
