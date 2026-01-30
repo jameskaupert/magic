@@ -14,7 +14,7 @@
   ansible.builtin.lineinfile:
     path: /etc/nsswitch.conf
     regexp: '^hosts:'
-    line: 'hosts: mymachines mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns'
+    line: 'hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns'
     backup: true
   become: true
   notify: Restart avahi-daemon
@@ -33,9 +33,31 @@
     enabled: true
   become: true
 
+- name: Check for broken libpoppler-cpp.so.3 symlink (cups-filters/poppler mismatch)
+  ansible.builtin.stat:
+    path: /usr/lib/libpoppler-cpp.so.3
+  register: poppler_so3
+
+- name: Check for working libpoppler-cpp.so.2
+  ansible.builtin.stat:
+    path: /usr/lib/libpoppler-cpp.so.2
+  register: poppler_so2
+
+- name: Fix broken poppler symlink if needed
+  ansible.builtin.file:
+    src: /usr/lib/libpoppler-cpp.so.2
+    dest: /usr/lib/libpoppler-cpp.so.3
+    state: link
+    force: true
+  become: true
+  when:
+    - poppler_so2.stat.exists
+    - not poppler_so3.stat.exists
+  notify: Refresh library cache
+
 - name: Wait for services to be ready
   ansible.builtin.pause:
-    seconds: 10
+    seconds: 3
 
 - name: Discover printer via mDNS
   ansible.builtin.shell: |
@@ -47,8 +69,8 @@
     executable: /bin/bash
   register: printer_discovery
   changed_when: false
-  retries: 5
-  delay: 10
+  retries: 3
+  delay: 5
   until: printer_discovery.stdout | length > 0
 
 - name: Parse printer hostname from discovery

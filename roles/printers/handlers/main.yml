@@ -14,3 +14,7 @@
     name: cups
     state: restarted
     enabled: true
+
+- name: Refresh library cache
+  ansible.builtin.command: ldconfig
+  become: true
