@@ -1,0 +1,114 @@
+---
+# roles/printer/tasks/main.yml
+# Main task list for setting up driverless IPP printing.
+# Installs CUPS/Avahi, discovers printer via mDNS, and configures it.
+
+- name: Install printer packages from Pacman
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ printers.packages }}"
+    state: present
+
+- name: Configure nsswitch.conf for mDNS resolution
+  ansible.builtin.lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^hosts:'
+    line: 'hosts: mymachines mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns'
+    backup: true
+  become: true
+  notify: Restart avahi-daemon
+
+- name: Enable and start avahi-daemon
+  ansible.builtin.systemd:
+    name: avahi-daemon
+    state: started
+    enabled: true
+  become: true
+
+- name: Enable and start CUPS
+  ansible.builtin.systemd:
+    name: cups
+    state: started
+    enabled: true
+  become: true
+
+- name: Wait for services to be ready
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Discover printer via mDNS
+  ansible.builtin.shell: |
+    set -o pipefail
+    avahi-browse -rt {{ printer_mdns_service }} 2>/dev/null | \
+      grep -A5 "{{ printer_mdns_name }}" | \
+      grep -E "^\s+hostname|^\s+address|^\s+port|^\s+txt" | head -4
+  args:
+    executable: /bin/bash
+  register: printer_discovery
+  changed_when: false
+  retries: 5
+  delay: 10
+  until: printer_discovery.stdout | length > 0
+
+- name: Parse printer hostname from discovery
+  ansible.builtin.set_fact:
+    printer_hostname: "{{ printer_discovery.stdout | regex_search('hostname = \\[([^\\]]+)\\]', '\\1') | first }}"
+  when: printer_discovery.stdout | length > 0
+
+- name: Debug discovered printer
+  ansible.builtin.debug:
+    msg: "Discovered printer at: {{ printer_hostname }}"
+  when: printer_hostname is defined
+
+- name: Check if printer already exists in CUPS
+  ansible.builtin.shell: lpstat -p {{ printer_cups_name }} 2>/dev/null
+  register: printer_exists
+  changed_when: false
+  failed_when: false
+
+- name: Add printer using IPP Everywhere (driverless)
+  ansible.builtin.command: >
+    lpadmin -p {{ printer_cups_name }}
+    -v ipp://{{ printer_hostname }}/ipp/print
+    -m everywhere
+    -D "{{ printer_description }}"
+    {% if printer_location %}-L "{{ printer_location }}"{% endif %}
+    -E
+  become: true
+  when:
+    - printer_hostname is defined
+    - printer_exists.rc != 0
+  register: printer_added
+
+- name: Update existing printer URI if hostname changed
+  ansible.builtin.command: >
+    lpadmin -p {{ printer_cups_name }}
+    -v ipp://{{ printer_hostname }}/ipp/print
+  become: true
+  when:
+    - printer_hostname is defined
+    - printer_exists.rc == 0
+  changed_when: false
+
+- name: Set as default printer
+  ansible.builtin.command: lpadmin -d {{ printer_cups_name }}
+  become: true
+  when: printer_set_default | bool
+  changed_when: false
+
+- name: Enable printer and accept jobs
+  ansible.builtin.shell: |
+    cupsenable {{ printer_cups_name }}
+    cupsaccept {{ printer_cups_name }}
+  become: true
+  changed_when: false
+
+- name: Verify printer is ready
+  ansible.builtin.command: lpstat -p {{ printer_cups_name }}
+  register: printer_status
+  changed_when: false
+
+- name: Display printer status
+  ansible.builtin.debug:
+    msg: "{{ printer_status.stdout }}"

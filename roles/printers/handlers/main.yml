@@ -1,0 +1,16 @@
+---
+# roles/printer/handlers/main.yml
+# Handlers triggered by tasks via 'notify'.
+# These run once at the end of the play if notified.
+
+- name: Restart avahi-daemon
+  ansible.builtin.systemd:
+    name: avahi-daemon
+    state: restarted
+    enabled: true
+
+- name: Restart cups
+  ansible.builtin.systemd:
+    name: cups
+    state: restarted
+    enabled: true

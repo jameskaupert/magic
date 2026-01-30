@@ -126,6 +126,13 @@ package_management:
   appimage_path: "{{ ansible_facts['env']['HOME'] }}/.local/bin"
   desktop_entry_path: "{{ ansible_facts['env']['HOME'] }}/.local/share/applications"
 
+printers:
+  packages:
+    - cups
+    - avahi
+    - nss-mdns
+    - poppler
+
 terminals:
   packages:
     - alacritty

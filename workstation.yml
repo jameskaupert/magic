@@ -12,6 +12,7 @@
     - { role: package-managers }
     - { role: fonts }
     - { role: cli }
+    - { role: printers }
     - { role: containers }
     - { role: desktop }
     - { role: audio }

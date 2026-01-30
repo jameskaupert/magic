@@ -1,0 +1,24 @@
+---
+# roles/printer/defaults/main.yml
+# Default variables for the printer role.
+# Override these in your playbook or host_vars.
+#
+# Printer configuration
+# The mDNS hostname pattern for HP LaserJet Pro M118dw
+# Adjust if your printer advertises differently
+printer_mdns_name: "HP LaserJet Pro M118dw"
+
+# Name for the printer in CUPS (no spaces)
+printer_cups_name: "HP_LaserJet_Pro_M118dw"
+
+# Human-readable description
+printer_description: "HP LaserJet Pro M118dw (WiFi)"
+
+# Location (optional)
+printer_location: ""
+
+# Set as default printer
+printer_set_default: true
+
+# mDNS service type for IPP printers
+printer_mdns_service: "_ipp._tcp"
